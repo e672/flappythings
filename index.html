@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>index.htm</title>
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta name="keywords" content="flappy bird">
+    </head>
+    <body>
+        <div id="hey">
+            <!--I was having trouble in this part.If you set an absolute div inside a div.The parent must be 
+            position relative to make absolute child relative to its parent-->
+            <div class="scoreAndPause">
+                <button><i class="bi bi-play"></i></button><!--<i class="bi bi-pause"></i>-->
+                <h1 id="score">0</h1>
+            </div>
+            <main></main>
+        </div>
+    </body>
+    <script src="main.js"></script>
+</html>

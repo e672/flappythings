@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+    <style>
+        :root{
+            --x-start:0;
+            --x-end:400px;
+            --y-start:0;
+            --y-end:0;
+        }
+        @keyframes ani {
+            0%{top:var(--x-start)}
+            100%{top:var(--x-end)}
+        }
+        @keyframes ani2{
+            
+            0%{top:var(--y-start)}
+            100%{top:var(--y-end)}
+        }
+        .mother{
+            position: relative;
+            width: 40rem;
+            height: 30rem;
+            background-color: bisque;
+            z-index: auto;
+        }
+        .son {
+            position: relative;
+            width:4rem;
+            height: 4rem;
+            background-color: purple;
+            animation-name: "ani";
+            animation-timing-function: cubic-bezier(0.4,0.1,0.5,1);
+            animation-duration: 2s;
+            z-index: auto;
+        }
+        .son2 {
+            position: relative;
+            width:4rem;
+            height: 4rem;
+            background-color: black;
+            animation-name: "ani2";
+            animation-duration: 0.3s;
+            animation-timing-function: cubic-bezier(0.4,0.1,0.5,1);
+            z-index: auto;
+        }
+    </style>
+    <body>
+        <main>
+            <div class="mother">
+                <div class="son"></div>
+            </div>
+            <button type="button">click</button>
+        </main>
+    </body>
+    <script>
+        let el=document.querySelector("button")
+        let mother=document.querySelector(".mother")
+        el.onclick=()=>{
+            //önceki moru seç.
+            let main=document.querySelector(".son")
+            let position=main.getBoundingClientRect();
+            //siyah kutuyu olustur ve top left ekle
+            let newe=creationRoom("son2")
+            mother.appendChild(newe)
+            newe.style.top=position.top.toString()+"px";
+            newe.style.left=position.left.toString()+"px";
+            //siyah kutunun anmasyonunu değistir
+            document.documentElement.style.setProperty('--y-start',(pixTo(newe.style.top)).toString()+"px");
+            document.documentElement.style.setProperty('--y-end',(pixTo(newe.style.top)-100).toString()+"px");
+            //delete mor box
+            main.remove()
+            setTimeout(()=>{
+                //siyah animasyon bitince siyah pozisyonu al ve sil
+                let hey=document.querySelector(".son2")
+                let pos=hey.getBoundingClientRect();
+                hey.remove()
+                //tekrar mor oluştur top left ekle
+                let newAgain=creationRoom("son");
+                newAgain.style.top=pos.top.toString()+"px";
+                newAgain.style.left=pos.left.toString()+"px";
+                //mor olana animasyonunu söyle
+                document.documentElement.style.setProperty('--x-start',newAgain.style.top);
+                document.documentElement.style.setProperty('--x-end',(pixTo(newAgain.style.top)+400).toString()+"px");
+
+                mother.appendChild(newAgain)
+                let eski=document.querySelector(".son").getBoundingClientRect();
+                console.log("son2",pos.top)//
+                console.log("son",newAgain.style.top)
+                
+            },300)
+        }
+        pixTo=(str)=>{
+            return parseInt(str.split("px")[0])
+        }
+        creationRoom=(clas)=>{
+            let ele=document.createElement("div")
+            ele.className=clas;
+            return ele;
+        } 
+       
+        //this company is built...
+    </script>
+</html>
